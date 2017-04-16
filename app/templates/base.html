@@ -1,0 +1,51 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Student Management System</title>
+    {% else %}
+    <title>Student Management System</title>
+    {% endif %}
+  </head>
+  <body>
+  <style type="text/css">
+  ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    display: inline;
+  }
+  </style>
+    <div>Student Management System
+    <ul>
+        <li><a href="/index">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/list">Student List</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('user', username=g.user.username) }}">Profile</a></li>
+        <li><a href="/exercises">Exercises</a></li>
+        {% if current_user.username == 'admin' %}
+        <li><a href="/uploadlist">Upload List</a></li>
+        {% endif %}
+        <li><a href="/challenge">Challenges</a></li>
+        <li><a href="/logout">Logout</a></li>
+        {% endif %}
+        
+    </ul>
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }} </li>
+        <br>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>

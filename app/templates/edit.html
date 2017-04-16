@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Edit Your Profile</h1>
+  <form action="" method="post" name="edit">
+      {{form.hidden_tag()}}
+      <table>
+          {% if admin == True %}
+          <tr>
+              <td>Your username:</td>
+              <td><b>{{ form.username(size=24) }}</b></td>
+          </tr>
+          <tr>
+              <td>Your name:</td>
+              <td><b>{{ form.name(size=24)}}</b></td>
+          </tr>
+          {% else %}
+          <tr>
+              <td>Your username:</td>
+              <td><b>{{ current_user.username }}</b></td>
+          </tr>
+          <tr>
+              <td>Your name:</td>
+              <td><b>{{ current_user.name }}</b></td>
+          </tr>
+          {% endif %}
+          <tr>
+              <td>Your password:</td>
+              <td>{{ form.password(size=24) }}</td>
+          </tr>
+          <tr>
+              <td>Your email:</td>
+              <td>{{ form.email(size=24) }}</td>
+          </tr>
+          <tr>
+              <td>Your phone number:</td>
+              <td>{{ form.phoneno(size=24) }}</td>
+          </tr>
+          <tr>
+              <td></td>
+              <td><input type="submit" value="Save Changes"></td>
+          </tr>
+      </table>
+  </form>
+{% endblock %}

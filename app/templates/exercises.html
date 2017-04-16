@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Exercises</h1>    
+    {% for f in files %}
+    	<div>
+    	{{f}}
+    	<form action="/getfile/{{f}}" method="post">
+    	   <input type="submit" name="download" value="Download {{f}}">
+    	</form>
+    	<form action="/upfile/{{f}}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name={{f}} value={{f}}>
+            <input type="file" name="file">
+            <input type="submit" value="Upload">
+    	</form>
+    	</div>
+    {% endfor %}
+    <br><br><br><br>
+    {% if admin == True %}
+        <form action="/upexercise" method="post" enctype="multipart/form-data">
+            <input type="file" name="fileex">
+            <input type="submit" value="Upload new exercise" name="uploadex">
+        </form>
+    {% endif %}
+{% endblock %}

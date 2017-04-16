@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>List of user</h1>
+<table>
+	<tr>
+		<td>Username</td>
+		<td>Email</td>
+	</tr>
+	{% for u in users %}
+	{% if u.username != "admin" %}
+	<tr>
+		<td><a href="/user/{{u.username}}">{{ u.username }}</a></td>
+		<td>{{ u.email }}</td>
+	</tr>
+	{% endif %}
+	{% endfor %}
+</table>
+{% endblock %}

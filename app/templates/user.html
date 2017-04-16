@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>User: {{ user.username }}</h1>
+  <p>Real name: {{ user.name }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Phone number: {{ user.phoneno }}</p>
+  <p>Messages:</p>
+  {% for m in messages %}
+    <div>
+      <form method="post">
+      {{ m.author }}:{{ m.content }}
+      {% if m.author == current_user.username %}
+        <input type="submit" value="Edit" name="edit">  
+        <input type="submit" value="Delete" name="delete">
+      <input type="hidden" value="{{ m.id }}" name="id_message">
+      {% if token == True %}
+        Content: {{ form.content }}
+        <input type="submit" value="Repost" name="repost">
+      {% endif %}
+      {% endif %}
+      </form>
+    </div>
+  {% endfor %}
+  {% if current_user.is_authenticated %}
+  <form action="" method="post" name="post">
+     {{ form.hidden_tag() }}
+     Content: {{ form.content }}
+    <input type="submit" value="Post">
+  </form>
+  {% endif %}
+  {% if user.username == g.user.username %}
+    <p><a href="{{ url_for('edit') }}">Edit</a></p>
+  {% endif %}
+{% endblock %}
